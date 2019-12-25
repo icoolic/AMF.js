@@ -198,7 +198,7 @@ AMF3.INTEGER.encode = (value) ->
 	return @write value if value < 0x80
 	return @write [(value >> 7 & 0x7f) | 0x80, value & 0x7f] if value < 0x4000
 	return @write [(value >> 14 & 0x7f) | 0x80, (value >> 7 & 0x7f) | 0x80, value & 0x7f] if value < 0x200000
-	@write [(value >> 22 & 0x7f) | 0x80, (value >> 14 & 0x7f) | 0x80, (value >> 7 & 0x7f) | 0x80, value & 0xff]
+	@write [(value >> 22 & 0x7f) | 0x80, (value >> 15 & 0x7f) | 0x80, (value >> 8 & 0x7f) | 0x80, value & 0xff]
 
 AMF3.DOUBLE.encode = (value) ->
 	@writeDoubleBE value
@@ -213,8 +213,10 @@ AMF3.DATE.encode = (value) ->
 	@writeDoubleBE value.getTime()
 
 AMF3.ARRAY.encode = (value) ->
+	
 	if value instanceof Array
-		@write value.length << 1 | 1
+		#@write value.length << 1 | 1
+		AMF3.INTEGER.encode.call @, value.length << 1 | 1
 		@serialize "", AMF3 #Empty string to end the associative part
 		@encodeAmf3 element for element in value
 	else

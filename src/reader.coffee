@@ -19,13 +19,13 @@ class Reader
 		return read
 
 	readUInt16BE: ->
-		@readByte(2).readUInt16BE()
+		@readByte(2).readUInt16BE(0, true)
 
 	readDoubleBE: ->
-		@readByte(8).readDoubleBE()
+		@readByte(8).readDoubleBE(0, true)
 
 	readInt32BE: ->
-		@readByte(4).readInt32BE()
+		@readByte(4).readInt32BE(0, true)
 
 	readString: ->
 		len = @readUInt16BE()

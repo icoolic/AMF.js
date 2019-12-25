@@ -195,7 +195,9 @@ AMF3.OBJECT.decode = ->
 		@amf3ObjectReferences.push object
 		return object
 
-	ret = new classes.Serializable trait.name || undefined
+	classType = AMFDecoder.amf3Externalizables[trait.name]
+	ret = if classType then new classType trait.name || undefined else new classes.Serializable trait.name || undefined;;
+
 	@amf3ObjectReferences.push ret
 	ret[x] = @decode AMF3 for x in trait.staticFields
 

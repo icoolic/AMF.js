@@ -163,8 +163,13 @@ describe "amf.js - AMF3", ->
 		assert.equal decoder.decode(AMF3), undefined
 
 	it "should be able to serialize simple arrays", ->
-		encoder.writeObject [1, 2, 3], AMF3
-		decoder.decode(AMF3).should.have.length 3
+		#encoder.writeObject [1, 2, 3], AMF3
+		len = 10000;
+		a = [];
+		eat = (i) -> a[i] = "10154845866440966"
+		eat i  for i in [0...len];
+		encoder.writeObject a, AMF3
+		decoder.decode(AMF3).should.have.length len
 
 	it "should be able to serialize dates", ->
 		date = new Date()
