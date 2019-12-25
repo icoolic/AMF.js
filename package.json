@@ -1,6 +1,6 @@
 {
   "name": "amfjs",
-  "version": "1.3.2",
+  "version": "1.3.4",
   "description": "Forked (https://github.com/ProjectCryo/AMF.js) AMF library to support specific requirements",
   "main": "lib/amf-js.js",
   "directories": {
